@@ -70,6 +70,30 @@ public class Application extends JFrame {
         JMenuItem itemBoutons = new JMenuItem(actionAfficherBoutons);
         menuApplication.add(itemBoutons);
         barre.add(menuApplication);
+        //menu aide
+        JMenu menuAide = new JMenu("Aide");
+        menuAide.setMnemonic(KeyEvent.VK_A);
+        JMenuItem itemCfaire =new JMenuItem("comment faire");
+
+        JMenuItem itemConfMenu = new JMenuItem("config menu");
+        menuAide.add(itemCfaire);
+        menuAide.add(itemConfMenu);
+        itemCfaire.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+
+        });
+        itemConfMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+        });
+        barre.add(menuAide);
+
+
         // ****** Fin barre de menu ******
         
         // ****** Création des fenêtres ******
