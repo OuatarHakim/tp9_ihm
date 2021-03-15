@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import edu.mermet.tp8.Bdialogue.DialogCommentFaire;
 import edu.mermet.tp8.fenetres.FenetreBoutons;
 import edu.mermet.tp8.fenetres.FenetreConversion;
 import edu.mermet.tp8.fenetres.FenetreDiaporama;
@@ -78,17 +79,8 @@ public class Application extends JFrame {
         JMenuItem itemConfMenu = new JMenuItem("config menu");
         menuAide.add(itemCfaire);
         menuAide.add(itemConfMenu);
-        itemCfaire.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-
-        });
-        itemConfMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
+        itemCfaire.addActionListener(e -> new DialogCommentFaire(this));
+        itemConfMenu.addActionListener(e -> {
 
         });
         barre.add(menuAide);
