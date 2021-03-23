@@ -8,7 +8,7 @@ public class DialogCommentFaire extends JDialog {
     Border blackline = BorderFactory.createLineBorder(Color.black);
     JPanel droite;
     JPanel gauche;
-    JLabel text;
+    JEditorPane text;
     JList liste;
 
     public DialogCommentFaire(JFrame parent) {
@@ -21,16 +21,17 @@ public class DialogCommentFaire extends JDialog {
     }
 
     public void init() {
-        droite = new JPanel();
-        gauche = new JPanel();
-        text = new JLabel();
+
+
+
+        text = new JEditorPane();
         String[] choix = {"comment faire ?", "conversion Celsius", "conversion Farenhei", " gras ", "changer la couleur", "Quitter"};
         liste = new JList(choix);
 
         liste.addListSelectionListener(listSelectionEvent -> {
             if (liste.getSelectedValue().toString() == "comment faire ?") {
 
-                text.setText("<html>Pour afficher les aides ,sélectionnez<br> l'item <font color=red />Comment Faire ?</font> dans le menu<br> <font color =blue>Aide .</font></html>");
+                text.setText("Pour afficher les aides ,sélectionnez<br> l'item <font color=red />Comment Faire ?</font> dans le menu<br> <font color =blue>Aide .</font>");
 
 
             } else if (liste.getSelectedValue().toString() == "conversion Celsius") {
@@ -41,13 +42,11 @@ public class DialogCommentFaire extends JDialog {
             }
         });
 
-        droite.setBackground(Color.white);
-        gauche.setBackground(Color.white);
-        droite.add(liste);
-        droite.setBorder(blackline);
-        add(droite, BorderLayout.WEST);
-        gauche.add(text);
-        gauche.setBorder(blackline);
-        add(gauche, BorderLayout.CENTER);
+
+        JSplitPane pnl =new  JSplitPane(JSplitPane.HORIZONTAL_SPLIT, liste, text );
+        pnl.setResizeWeight( 0.33 );
+        add(pnl);
+
+
     }
 }
