@@ -34,7 +34,7 @@ public class FenetreConversion extends AbstractFenetreInterne {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 if(e.getButton()==MouseEvent.BUTTON3){
-                JOptionPane.showMessageDialog(fen,"La valeur en Celius","Aide",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(fen,"La valeur en Celius","Aide",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -49,6 +49,16 @@ public class FenetreConversion extends AbstractFenetreInterne {
         JLabel labFarenheit = new JLabel("Farenheit :");
         champFarenheit = new JTextField(15);
         champFarenheit.setToolTipText("La valeur en Farenheit");
+        champFarenheit.addMouseListener(new MouseAdapter() {
+            FenetreConversion fen;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(e.getButton()==MouseEvent.BUTTON3){
+                    JOptionPane.showMessageDialog(fen,"La valeur en Farenheit","Aide",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
         labFarenheit.setLabelFor(champFarenheit);
         ligneFarenheit.add(labFarenheit);
         ligneFarenheit.add(champFarenheit);
