@@ -3,16 +3,8 @@ package edu.mermet.tp8.fenetres;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import edu.mermet.tp8.Application;
@@ -35,6 +27,17 @@ public class FenetreConversion extends AbstractFenetreInterne {
         ligneCelsius.setLayout(new FlowLayout(FlowLayout.TRAILING));
         JLabel labCelsius = new JLabel("Celsius :");
         champCelsius = new JTextField(15);
+        champCelsius.setToolTipText("La valeur en Celsius");
+        champCelsius.addMouseListener(new MouseAdapter() {
+            FenetreConversion fen;
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(e.getButton()==MouseEvent.BUTTON3){
+                JOptionPane.showMessageDialog(fen,"La valeur en Celius","Aide",JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
         labCelsius.setLabelFor(champCelsius);
         ligneCelsius.add(labCelsius);
         ligneCelsius.add(champCelsius);
@@ -45,6 +48,7 @@ public class FenetreConversion extends AbstractFenetreInterne {
         ligneFarenheit.setLayout(new FlowLayout(FlowLayout.TRAILING));
         JLabel labFarenheit = new JLabel("Farenheit :");
         champFarenheit = new JTextField(15);
+        champFarenheit.setToolTipText("La valeur en Farenheit");
         labFarenheit.setLabelFor(champFarenheit);
         ligneFarenheit.add(labFarenheit);
         ligneFarenheit.add(champFarenheit);
