@@ -40,6 +40,10 @@ public class Application extends JFrame {
     private Action actionAfficherConfMenu;
     private DialogCommentFaire dialogCommentFaire;
     private ConfigMenu  configMenu;
+    private JMenuItem itemConversion;
+    private JMenuItem itemTexte;
+    private JMenuItem itemDiaporama;
+    private JMenuItem itemBoutons;
     public Application() {
         super("multi-fenêtres");
         this.setContentPane(new JDesktopPane());
@@ -64,16 +68,16 @@ public class Application extends JFrame {
         JMenu menuApplication = new JMenu("Applications");
         menuApplication.setMnemonic(KeyEvent.VK_A);
         actionAfficherConversion = new ActionAfficherConversion();
-        JMenuItem itemConversion = new JMenuItem(actionAfficherConversion);
+         itemConversion = new JMenuItem(actionAfficherConversion);
         menuApplication.add(itemConversion);
         actionAfficherTexte = new ActionAfficherTexte();
-        JMenuItem itemTexte = new JMenuItem(actionAfficherTexte);
+        itemTexte = new JMenuItem(actionAfficherTexte);
         menuApplication.add(itemTexte);
         actionAfficherDiaporama = new ActionAfficherDiaporama();
-        JMenuItem itemDiaporama = new JMenuItem(actionAfficherDiaporama);
+        itemDiaporama = new JMenuItem(actionAfficherDiaporama);
         menuApplication.add(itemDiaporama);
         actionAfficherBoutons = new ActionAfficherBoutons();
-        JMenuItem itemBoutons = new JMenuItem(actionAfficherBoutons);
+        itemBoutons = new JMenuItem(actionAfficherBoutons);
         menuApplication.add(itemBoutons);
         barre.add(menuApplication);
         //menu aide
@@ -166,8 +170,10 @@ public class Application extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+
             conversion.setVisible(true);
             enableConversion(false);
+
         }
     }
 
@@ -218,6 +224,19 @@ public class Application extends JFrame {
 
     public Action getActionAfficherTexte() {
         return actionAfficherTexte;
+    }
+
+    public void masquerConversion(boolean b){
+           itemConversion.setVisible(b);
+    }
+    public void masquerSaisie(boolean b){
+        itemTexte.setVisible(b);
+    }
+    public void masquerDiaporama(boolean b){
+        itemDiaporama.setVisible(b);
+    }
+    public void masquerBoutons(boolean b){
+        itemBoutons.setVisible(b);
     }
 
     public Action getActionAfficherDiaporama() {
