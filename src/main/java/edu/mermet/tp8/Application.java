@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import edu.mermet.tp8.Bdialogue.ConfigMenu;
 import edu.mermet.tp8.Bdialogue.DialogCommentFaire;
 import edu.mermet.tp8.fenetres.FenetreBoutons;
 import edu.mermet.tp8.fenetres.FenetreConversion;
@@ -35,6 +36,10 @@ public class Application extends JFrame {
     private Action actionAfficherTexte;
     private Action actionAfficherDiaporama;
     private Action actionAfficherBoutons;
+    private Action actionAfficherCfaire;
+    private Action actionAfficherConfMenu;
+    private DialogCommentFaire dialogCommentFaire;
+    private ConfigMenu  configMenu;
     public Application() {
         super("multi-fenêtres");
         this.setContentPane(new JDesktopPane());
@@ -73,16 +78,15 @@ public class Application extends JFrame {
         barre.add(menuApplication);
         //menu aide
         JMenu menuAide = new JMenu("Aide");
+
         menuAide.setMnemonic(KeyEvent.VK_A);
-        JMenuItem itemCfaire =new JMenuItem("comment faire");
-
-        JMenuItem itemConfMenu = new JMenuItem("config menu");
+        actionAfficherCfaire = new ActionAfficherCfaire();
+        JMenuItem itemCfaire =new JMenuItem(actionAfficherCfaire);
         menuAide.add(itemCfaire);
+        actionAfficherConfMenu = new ActionAfficheConfMenu();
+        JMenuItem itemConfMenu = new JMenuItem(actionAfficherConfMenu );
         menuAide.add(itemConfMenu);
-        itemCfaire.addActionListener(e -> new DialogCommentFaire(this));
-        itemConfMenu.addActionListener(e -> {
 
-        });
         barre.add(menuAide);
 
 
@@ -101,6 +105,9 @@ public class Application extends JFrame {
         // ------ fenêtre boutons ------
         boutons = new FenetreBoutons(this,actionAfficherBoutons);
         this.add(boutons);
+
+        dialogCommentFaire = new DialogCommentFaire(this);
+        configMenu = new ConfigMenu(this);
         // ****** Fin création fenêtres ******
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,300);
@@ -164,6 +171,31 @@ public class Application extends JFrame {
         }
     }
 
+    public class ActionAfficherCfaire extends AbstractAction {
+        public ActionAfficherCfaire() {
+            super("Comment faire ?");
+            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
+            putValue(Action.MNEMONIC_KEY,KeyEvent.VK_F);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            dialogCommentFaire.setVisible(true);
+
+        }
+    }
+    public class ActionAfficheConfMenu extends AbstractAction {
+        public ActionAfficheConfMenu() {
+            super("Configuration Menu");
+            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK));
+            putValue(Action.MNEMONIC_KEY,KeyEvent.VK_M);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            configMenu.setVisible(true);
+        }
+    }
     public void enableConversion(boolean b) {
         actionAfficherConversion.setEnabled(b);
     }
