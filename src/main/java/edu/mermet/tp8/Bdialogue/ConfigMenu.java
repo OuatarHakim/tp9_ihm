@@ -159,6 +159,12 @@ public class ConfigMenu extends JDialog {
         valider = new JButton("Valider");
         valider.addActionListener(new ActionValider());
         annuler = new JButton("Annuler");
+        annuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        });
         bas.add(valider);
         bas.add(annuler);
         return bas;
