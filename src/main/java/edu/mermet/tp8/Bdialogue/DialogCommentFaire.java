@@ -25,26 +25,30 @@ public class DialogCommentFaire extends JDialog {
 
 
         text = new JEditorPane();
+        text.setEditable( false );
+        text.setContentType("text/html");
+
         String[] choix = {"comment faire ?", "conversion Celsius", "conversion Farenhei", " gras ", "changer la couleur", "Quitter"};
         liste = new JList(choix);
 
         liste.addListSelectionListener(listSelectionEvent -> {
-            if (liste.getSelectedValue().toString() == "comment faire ?") {
+            if (liste.getAnchorSelectionIndex() == 0) {
+                System.out.println("index : "+ liste.getAnchorSelectionIndex());
 
                 text.setText("Pour afficher les aides ,sélectionnez<br> l'item <font color=red />Comment Faire ?</font> dans le menu<br> <font color =blue>Aide .</font>");
 
 
-            } else if (liste.getSelectedValue().toString() == "conversion Celsius") {
-                text.setText("bonjour , j'espere que pus allez bien ??");
+            } else if (liste.getAnchorSelectionIndex() == 1) {
+                text.setText("<html><h1>Contenu au format <b>HTML</b></h1></html>");
 
-            } else if (liste.getSelectedValue().toString() == "conversion Farenhei") {
-
+            } else if (liste.getAnchorSelectionIndex() == 2) {
+                System.out.println("index : "+ liste.getAnchorSelectionIndex());
             }
         });
 
 
         JSplitPane pnl =new  JSplitPane(JSplitPane.HORIZONTAL_SPLIT, liste, text );
-        pnl.setResizeWeight( 0.33 );
+        pnl.setResizeWeight( 0.4 );
         add(pnl);
 
 
