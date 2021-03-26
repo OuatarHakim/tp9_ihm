@@ -1,13 +1,9 @@
 package edu.mermet.tp8.fenetres;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-import edu.mermet.tp8.Application;
+import javax.swing.event.AncestorListener;
 
 /**
  *
@@ -39,8 +35,23 @@ public class FenetreConversion extends AbstractFenetreInterne {
             }
         });
         labCelsius.setLabelFor(champCelsius);
+
+
+        Icon icon = UIManager.getIcon("OptionPane.questionIcon");
+        JLabel label = new JLabel(icon);
+        label.addMouseListener(new MouseAdapter() {
+            FenetreConversion fen;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JOptionPane.showMessageDialog(fen,"La valeur en Celius","Aide",JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+
         ligneCelsius.add(labCelsius);
         ligneCelsius.add(champCelsius);
+        ligneCelsius.add(label);
         this.add(ligneCelsius);
         celsiusAFocus = true;
         champCelsius.addFocusListener(new EcouteurFocus(true));
@@ -62,6 +73,18 @@ public class FenetreConversion extends AbstractFenetreInterne {
         labFarenheit.setLabelFor(champFarenheit);
         ligneFarenheit.add(labFarenheit);
         ligneFarenheit.add(champFarenheit);
+        Icon icon1 = UIManager.getIcon("OptionPane.questionIcon");
+        JLabel label1 = new JLabel(icon);
+        label1.addMouseListener(new MouseAdapter() {
+            FenetreConversion fen;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JOptionPane.showMessageDialog(fen,"La valeur en Farenheit","Aide",JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+        ligneFarenheit.add(label1);
         this.add(ligneFarenheit);
         champFarenheit.addFocusListener(new EcouteurFocus(false));
         JPanel ligneValider = new JPanel();
