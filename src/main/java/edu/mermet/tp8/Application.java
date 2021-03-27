@@ -5,16 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import javax.swing.*;
 
 import edu.mermet.tp8.Bdialogue.ConfigMenu;
 import edu.mermet.tp8.Bdialogue.DialogCommentFaire;
@@ -44,6 +39,7 @@ public class Application extends JFrame {
     private JMenuItem itemTexte;
     private JMenuItem itemDiaporama;
     private JMenuItem itemBoutons;
+    private Properties prop;
     public Application() {
         super("multi-fenêtres");
         this.setContentPane(new JDesktopPane());
@@ -117,8 +113,45 @@ public class Application extends JFrame {
         setSize(600,300);
         this.setLocationRelativeTo(null);
         setVisible(true);
-    }
+        afficheSuggestion(prop);
 
+    }
+//  suggestions
+    private void afficheSuggestion(Properties p){
+        Set<String> set = new HashSet<>();
+        try(InputStream input = new FileInputStream(("src/main/resources/suggestion.properties"))){
+            p = new Properties();
+            p.load(input);
+            set =p.stringPropertyNames();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        String[] arrayKey = set.toArray(new String[set.size()]);
+        Random rndm = new Random();
+        int rndmNumber = rndm.nextInt(set.size());
+        System.out.println(p.getProperty((arrayKey[rndmNumber])));
+        Object[] options = { "Fermer", "Ne plus Afficher" };
+        int choice = JOptionPane.showOptionDialog(this, p.getProperty((arrayKey[rndmNumber])),"Suggestion",
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+        if (choice == JOptionPane.NO_OPTION)
+        {
+            p.setProperty(arrayKey[rndmNumber],"CHACHER");
+        }
+
+    }
+    private Set<String> read(String file,Properties p){
+        Set<String> set = new HashSet<>();
+        try(InputStream input = new FileInputStream(("src/main/resources/"+file))){
+
+            p = new Properties();
+            p.load(input);
+            set =p.stringPropertyNames();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return set;
+    }
     private class ActionAfficherBoutons extends AbstractAction {
         public ActionAfficherBoutons() {
             super("Boutons");
