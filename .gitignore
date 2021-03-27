@@ -1,2 +1,6 @@
 target/
 *.class
+.classpath
+.project
+.idea/
+tp8ihm.iml
