@@ -136,7 +136,7 @@ public class Application extends JFrame {
                 null, options, options[0]);
         if (choice == JOptionPane.NO_OPTION)
         {
-            p.setProperty(arrayKey[rndmNumber],"CHACHER");
+            //
         }
 
     }
