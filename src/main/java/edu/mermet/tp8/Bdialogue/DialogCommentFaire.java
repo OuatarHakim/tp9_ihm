@@ -32,8 +32,8 @@ public class DialogCommentFaire extends JDialog {
 
          DefaultListModel<String> choix = new DefaultListModel<>();
          keyValue =new HashMap<>();
-         read("HowTo/titres.properties");
-        Iterator<String> iterator = read("HowTo/titres.properties").iterator();
+
+         Iterator<String> iterator = read("HowTo/titres.properties").iterator();
 
         while(iterator.hasNext()){
             String key = iterator.next();

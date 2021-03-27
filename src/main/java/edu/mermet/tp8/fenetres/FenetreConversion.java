@@ -82,6 +82,7 @@ public class FenetreConversion extends AbstractFenetreInterne {
                 super.mouseClicked(e);
                 JOptionPane.showMessageDialog(fen,"La valeur en Farenheit","Aide",JOptionPane.INFORMATION_MESSAGE);
 
+
             }
         });
         ligneFarenheit.add(label1);
