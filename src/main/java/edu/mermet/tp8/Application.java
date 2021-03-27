@@ -129,7 +129,7 @@ public class Application extends JFrame {
         String[] arrayKey = set.toArray(new String[set.size()]);
         Random rndm = new Random();
         int rndmNumber = rndm.nextInt(set.size());
-        System.out.println(p.getProperty((arrayKey[rndmNumber])));
+
         Object[] options = { "Fermer", "Ne plus Afficher" };
         int choice = JOptionPane.showOptionDialog(this, p.getProperty((arrayKey[rndmNumber])),"Suggestion",
                 JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,

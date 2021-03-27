@@ -48,10 +48,8 @@ public class DialogCommentFaire extends JDialog {
         liste.addListSelectionListener(listSelectionEvent -> {
 
 
-            String titreGuide =  liste.getSelectedValue();
-            System.out.println(titreGuide);
-            String key = keyValue.get(titreGuide);
-            System.out.println(key);
+            String titre =  liste.getSelectedValue();
+            String key = keyValue.get(titre);
 
             String te =readProp("HowTo/textes.properties",key);
             text.setText(te);
