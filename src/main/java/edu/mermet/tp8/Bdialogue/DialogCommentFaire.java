@@ -1,56 +1,92 @@
 package edu.mermet.tp8.Bdialogue;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+
 
 public class DialogCommentFaire extends JDialog {
-    Border blackline = BorderFactory.createLineBorder(Color.black);
-    JPanel droite;
-    JPanel gauche;
+    HashMap<String, String> keyValue;
     JEditorPane text;
     JList liste;
 
     public DialogCommentFaire(JFrame parent) {
-        super(parent, "Comment faire");
+        super(parent, "Comment faire", true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 300);
         setLocationRelativeTo(null);
         init();
-        setVisible(true);
+
     }
 
     public void init() {
 
-
-
+        //EditorPanel
         text = new JEditorPane();
-        text.setEditable( false );
+        text.setEditable(false);
         text.setContentType("text/html");
 
-        String[] choix = {"comment faire ?", "conversion Celsius", "conversion Farenhei", " gras ", "changer la couleur", "Quitter"};
+        //liste
+
+         DefaultListModel<String> choix = new DefaultListModel<>();
+         keyValue =new HashMap<>();
+         read("HowTo/titres.properties");
+        Iterator iterator = read("HowTo/titres.properties").iterator();
+        while(iterator.hasNext()){
+            String key = (String) iterator.next();
+            String value = readProp("HowTo/titres.properties",key);
+            keyValue.put(value,key);
+            choix.addElement(readProp("HowTo/titres.properties",key));
+
+        }
+
         liste = new JList(choix);
-
+        liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         liste.addListSelectionListener(listSelectionEvent -> {
-            if (liste.getAnchorSelectionIndex() == 0) {
-                System.out.println("index : "+ liste.getAnchorSelectionIndex());
-
-                text.setText("Pour afficher les aides ,sélectionnez<br> l'item <font color=red />Comment Faire ?</font> dans le menu<br> <font color =blue>Aide .</font>");
 
 
-            } else if (liste.getAnchorSelectionIndex() == 1) {
-                text.setText("<html><h1>Contenu au format <b>HTML</b></h1></html>");
+            String titreGuide = (String) liste.getSelectedValue();
+            System.out.println(titreGuide);
+            String key = keyValue.get(titreGuide);
+            System.out.println(key);
 
-            } else if (liste.getAnchorSelectionIndex() == 2) {
-                System.out.println("index : "+ liste.getAnchorSelectionIndex());
-            }
+            String te =readProp("HowTo/textes.properties",key);
+            text.setText(te);
         });
-
-
-        JSplitPane pnl =new  JSplitPane(JSplitPane.HORIZONTAL_SPLIT, liste, text );
-        pnl.setResizeWeight( 0.4 );
+        // Horizontal JSplitePane
+        JSplitPane pnl = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, liste, text);
+        pnl.setResizeWeight(0.06);
         add(pnl);
 
 
     }
+
+    public String readProp(String file ,String key)  {
+        String read="";
+        try(InputStream input = new FileInputStream(("src/main/resources/"+file))){
+
+            Properties prop = new Properties();
+            prop.load(input);
+            read = prop.getProperty(key);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return read;
+    }
+
+
+      private Set<String> read(String file){
+        Set<String> set = new HashSet<>();
+          try(InputStream input = new FileInputStream(("src/main/resources/"+file))){
+
+              Properties prop = new Properties();
+              prop.load(input);
+              set =prop.stringPropertyNames();
+          }catch (IOException ex) {
+              ex.printStackTrace();
+          }
+          return set;
+      }
 }
